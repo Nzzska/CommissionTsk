@@ -12,21 +12,39 @@ class InputValidator
     private static $validLegalStatus = ['legal', 'natural'];
     private static $validOperationTypes = ['cash_in', 'cash_out'];
 
-    public static function validateDate(string $date, $format = 'Y-m-d'): bool
+    public static function validateTransaction(
+     $date,
+     $id,
+     $legalStatus,
+     $operationType,
+     $amount,
+     $currency
+    ): bool {
+        return
+            InputValidator::validateDate($date)
+            && InputValidator::validateId($id)
+            && InputValidator::validateOperationType($operationType)
+            && InputValidator::validateLegalStatus($legalStatus)
+            && InputValidator::validateAmount($amount)
+            && InputValidator::validateCurrency($currency)
+        ;
+    }
+
+    private static function validateDate(string $date, $format = 'Y-m-d'): bool
     {
         $datecheck = DateTimeImmutable::createFromFormat($format, $date);
 
         return $datecheck && $datecheck->format($format) === $date;
     }
 
-    public static function validateID(string $id): bool
+    private static function validateID(string $id): bool
     {
         $id = filter_var($id, FILTER_VALIDATE_INT);
 
         return $id !== false;
     }
 
-    public static function validateLegalStatus(string $legalStatus): bool
+    private static function validateLegalStatus(string $legalStatus): bool
     {
         return in_array(
             $legalStatus,
@@ -35,7 +53,7 @@ class InputValidator
         );
     }
 
-    public static function validateOperationType(string $operationType): bool
+    private static function validateOperationType(string $operationType): bool
     {
         return in_array(
             $operationType,
@@ -44,7 +62,7 @@ class InputValidator
         );
     }
 
-    public static function validateCurrency(string $currency): bool
+    private static function validateCurrency(string $currency): bool
     {
         return in_array(
             $currency,
@@ -52,7 +70,7 @@ class InputValidator
             true);
     }
 
-    public static function validateAmount(string $amount): bool
+    private static function validateAmount(string $amount): bool
     {
         return is_numeric($amount) && $amount > 0;
     }

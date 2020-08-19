@@ -14,37 +14,37 @@ class InputTest extends TestCase
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 1');
+        $this->assertEquals($stringOutput, 'Invalid input on line 1');
     }
     public function testInvalidId($filename = 'testInputs\badID.csv')
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 2');   
+        $this->assertEquals($stringOutput, 'Invalid input on line 2');
     }
     public function testInvalidAmount($filename = 'testInputs\badAmount.csv')
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 5');
+        $this->assertEquals($stringOutput, 'Invalid input on line 5');
     }
     public function testInvalidLegalType($filename = 'testInputs\badLegalType.csv')
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 3');
+        $this->assertEquals($stringOutput, 'Invalid input on line 3');
     }
     public function testInvalidOperationType($filename = 'testInputs\badOperationType.csv')
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 4');
+        $this->assertEquals($stringOutput, 'Invalid input on line 4');
     }
     public function testInvalidCurrencyType($filename = 'testInputs\veryBadCurrencyType.csv')
     {
         $output = DataReader::readDataFromCSV($filename);
         $stringOutput = $output[0] . $output[1] ;
-        $this->assertEquals($stringOutput, 'Error encountered on line 6');
+        $this->assertEquals($stringOutput, 'Invalid input on line 6');
     }
-    
+
 }
