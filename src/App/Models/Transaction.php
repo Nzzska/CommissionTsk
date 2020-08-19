@@ -6,6 +6,7 @@ namespace App\Models;
 
 class Transaction
 {
+    private $amountCurrency;
     private $freeWithdrawEUR;
     private $freeWithdrawTimes;
     private $date;
@@ -25,8 +26,8 @@ class Transaction
         $this->legalStatus = $legalStatus;
         $this->operationType = $operationType;
         $this->amountCurrency = $amountCurrency;
-        $this->freeWithdrawEUR = 1000;
-        $this->freeWithdrawTimes = 3;
+        $this->thisWeekEUR = 0;
+        $this->thisWeekTimes = 0;
     }
 
     public function setAmountCurrency($money)
@@ -69,24 +70,21 @@ class Transaction
         return $this->amountCurrency->getAmount();
     }
 
-    public function getWeeklyAmountEUR()
+    public function getWeeklyEUR()
     {
-        return $this->freeWithdrawEUR;
+        return $this->thisWeekEUR;
     }
 
-    public function getWeeklyAmountTimes()
+    public function getWeeklyTimes()
     {
-        return $this->freeWithdrawTimes;
+        return $this->thisWeekTimes;
     }
 
-    public function deductFreeWithdrawals(
+    public function addThisWeek(
         float $amountEUR,
         int $times
         ): void {
-        $this->freeWithdrawEUR = $this->freeWithdrawEUR - $amountEUR;
-        if ($this->freeWithdrawEUR <= 0) {
-            $this->freeWithdrawEUR = 0;
-        }
-        $this->freeWithdrawTimes = $this->freeWithdrawTimes - $times;
+        $this->thisWeekEUR = $this->thisWeekEUR + $amountEUR;
+        $this->thisWeekTimes = $this->thisWeekTimes + $times;
     }
 }

@@ -20,33 +20,30 @@ class DataReader
             while (!feof($filehandle)) {
                 $words = explode(',', trim(fgets($filehandle)));
                 $date = $words[0];
-                if (InputValidator::validateDate($date) === false) {
-                    throw new Exception();
+                $id = $words[1];
+                $legalStatus = $words[2];
+                $operationType = $words[3];
+                $amount = $words[4];
+                $currency = $words[5];
+                $validity = InputValidator::validateTransaction(
+                    $date,
+                    $id,
+                    $legalStatus,
+                    $operationType,
+                    $amount,
+                    $currency
+                );
+                if ($validity === false) {
+                    $errorMessage = [
+                        'Invalid input on line ',
+                        $lineCount,
+                    ];
+                    echo $errorMessage[0].$errorMessage[1];
+
+                    return $errorMessage;
                 }
                 $date = new DateTimeImmutable($date);
-                $id = $words[1];
-                if (InputValidator::validateID($id) === false) {
-                    throw new Exception();
-                }
-                $legalStatus = $words[2];
-                if (InputValidator::validateLegalStatus($legalStatus)
-                    === false) {
-                    throw new Exception();
-                }
-                $operationType = $words[3];
-                if (InputValidator::validateOperationType($operationType)
-                    === false) {
-                    throw new Exception();
-                }
-                $amount = $words[4];
-                if (InputValidator::validateAmount($amount) === false) {
-                    throw new Exception();
-                }
-                $amount = floatval($amount);
-                $currency = $words[5];
-                if (InputValidator::validateCurrency($currency) === false) {
-                    throw new Exception();
-                }
+                $amount = (float) $amount;
                 $amountCurrency = new Money($amount, $currency);
                 $transaction = new Transaction(
                     $date,
@@ -63,7 +60,7 @@ class DataReader
                 'Error encountered on line ',
                 $lineCount,
             ];
-            echo $errorMessage[0].$lineCount;
+            echo $errorMessage[0].$errorMessage[1];
 
             return $errorMessage;
             throw $e;

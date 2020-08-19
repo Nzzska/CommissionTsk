@@ -8,7 +8,7 @@ use App\Models\Money;
 
 class CurrencyConverter
 {
-    public static function convertCurrency(
+    public static function convert(
         Money $amountCurrency,
         string $destinationCurrency
         ): Money {
