@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Controllers\ParamsController;
+
 class Money
 {
     private static $hasCents = [
@@ -11,11 +13,7 @@ class Money
         'USD' => true,
         'JPY' => false,
     ];
-    private static $rates = [
-        'EUR' => 1.0,
-        'USD' => 1.1497,
-        'JPY' => 129.53,
-    ];
+
     private $amount;
     private $currency;
 
@@ -42,11 +40,11 @@ class Money
 
     public static function getRate(string $currency): float
     {
-        return Money::$rates[$currency];
+        return ParamsController::getRate($currency);
     }
 
     public static function getCentsStatus(string $currency): bool
     {
-        return Money::$hasCents[$currency];
+        return ParamsController::getCentsStatus($currency);
     }
 }

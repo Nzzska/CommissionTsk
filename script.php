@@ -20,7 +20,10 @@ use App\Controllers\CalculationsController;
 
 use App\Controllers\HistoryController;
 
+use App\Controllers\ParamsController;
+
 $filename = $argv[1];
+//$filename = 'input.csv';
 $transactionArray = DataReader::readDataFromCSV($filename);
 if ($transactionArray[0] === 'Error encountered on line '
     || $transactionArray[0] === 'Invalid input on line ') {
