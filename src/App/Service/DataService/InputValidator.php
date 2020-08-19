@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Service\DataService;
 
+use App\Controllers\ParamsController;
 use DateTimeImmutable as DateTimeImmutable;
 
 class InputValidator
 {
-    private static $validCurrencies = ['EUR', 'USD', 'JPY'];
-    private static $validLegalStatus = ['legal', 'natural'];
-    private static $validOperationTypes = ['cash_in', 'cash_out'];
-
     public static function validateTransaction(
      $date,
      $id,
@@ -46,27 +43,33 @@ class InputValidator
 
     private static function validateLegalStatus(string $legalStatus): bool
     {
+        $validLegalStatus = ParamsController::getSupportedEntityStatuses();
+
         return in_array(
             $legalStatus,
-            InputValidator::$validLegalStatus,
+            $validLegalStatus,
             true
         );
     }
 
     private static function validateOperationType(string $operationType): bool
     {
+        $validOperationTypes = ParamsController::getSupportedOperationTypes();
+
         return in_array(
             $operationType,
-            InputValidator::$validOperationTypes,
+            $validOperationTypes,
             true
         );
     }
 
     private static function validateCurrency(string $currency): bool
     {
+        $validCurrencies = ParamsController::getSupportedCurrencies();
+
         return in_array(
             $currency,
-            InputValidator::$validCurrencies,
+            $validCurrencies,
             true);
     }
 
