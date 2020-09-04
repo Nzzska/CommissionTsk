@@ -16,7 +16,5 @@ How to initiate tests.
 
 -------------------------------------------------------------------------
 
-I put a lot of effort to make code easily readable, however I added comments for
-messiest parts, which I would find a little confusing myself. 
-
-Also I added a diagram of the flow of this program (JPEG in this directory).
+This is code I wrote, as a job application task. I didn't get accepted, however I'm still working on 
+fixing all the issues pointed out in the review as a practice. 
