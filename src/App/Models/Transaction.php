@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use DateTimeImmutable;
+
 class Transaction
 {
     private $amountCurrency;
@@ -26,7 +28,7 @@ class Transaction
         $this->legalStatus = $legalStatus;
         $this->operationType = $operationType;
         $this->amountCurrency = $amountCurrency;
-        $this->thisWeekEUR = 0;
+        $this->thisWeekEUR = '0';
         $this->thisWeekTimes = 0;
     }
 
@@ -35,56 +37,56 @@ class Transaction
         $this->AmountCurrency = $money;
     }
 
-    public function getMoney()
+    public function getMoney(): Money
     {
         return $this->amountCurrency;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function getDate()
+    public function getDate(): DateTimeImmutable
     {
         return $this->date;
     }
 
-    public function getLegalStatus()
+    public function getLegalStatus(): string
     {
         return $this->legalStatus;
     }
 
-    public function getOperationType()
+    public function getOperationType(): string
     {
         return $this->operationType;
     }
 
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->amountCurrency->getCurrency();
     }
 
-    public function getAmount()
+    public function getAmount(): string
     {
         return $this->amountCurrency->getAmount();
     }
 
-    public function getWeeklyEUR()
+    public function getWeeklyEUR(): string
     {
         return $this->thisWeekEUR;
     }
 
-    public function getWeeklyTimes()
+    public function getWeeklyTimes(): int
     {
         return $this->thisWeekTimes;
     }
 
     public function addThisWeek(
-        float $amountEUR,
+        string $amountEUR,
         int $times
         ): void {
-        $this->thisWeekEUR = $this->thisWeekEUR + $amountEUR;
+        $this->thisWeekEUR = bcadd($this->thisWeekEUR, $amountEUR);
         $this->thisWeekTimes = $this->thisWeekTimes + $times;
     }
 }

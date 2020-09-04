@@ -12,7 +12,7 @@ class CurrencyRounder
         Money $amountCurrency
         ): Money {
         $amount = $amountCurrency->getAmount();
-        $centsExist = Money::getCentsStatus($amountCurrency->getCurrency());
+        $centsExist = $amountCurrency->getCentsStatus();
         if ($centsExist === false) {
             $amount = ceil($amount);
         } elseif ($centsExist === true) {

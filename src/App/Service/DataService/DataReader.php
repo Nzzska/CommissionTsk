@@ -34,16 +34,11 @@ class DataReader
                     $currency
                 );
                 if ($validity === false) {
-                    $errorMessage = [
-                        'Invalid input on line ',
-                        $lineCount,
-                    ];
-                    echo $errorMessage[0].$errorMessage[1];
-
-                    return $errorMessage;
+                    echo 'Invalid input on line '.$lineCount;
+                    exit;
                 }
+                $id = (int) $id;
                 $date = new DateTimeImmutable($date);
-                $amount = (float) $amount;
                 $amountCurrency = new Money($amount, $currency);
                 $transaction = new Transaction(
                     $date,
@@ -56,13 +51,8 @@ class DataReader
                 $lineCount = $lineCount + 1;
             }
         } catch (Exception $e) {
-            $errorMessage = [
-                'Error encountered on line ',
-                $lineCount,
-            ];
-            echo $errorMessage[0].$errorMessage[1];
-
-            return $errorMessage;
+            echo 'Invalid input on line '.$lineCount;
+            exit;
             throw $e;
         }
 

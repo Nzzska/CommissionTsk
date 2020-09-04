@@ -8,12 +8,6 @@ use App\Controllers\ParamsController;
 
 class Money
 {
-    private static $hasCents = [
-        'EUR' => true,
-        'USD' => true,
-        'JPY' => false,
-    ];
-
     private $amount;
     private $currency;
 
@@ -28,23 +22,23 @@ class Money
         $this->amount = $amount;
     }
 
-    public function getAmount()
+    public function getAmount(): string
     {
         return $this->amount;
     }
 
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
-    public static function getRate(string $currency): float
+    public function getRate(): string
     {
-        return ParamsController::getRate($currency);
+        return ParamsController::getRate($this->currency);
     }
 
-    public static function getCentsStatus(string $currency): bool
+    public function getCentsStatus(): bool
     {
-        return ParamsController::getCentsStatus($currency);
+        return ParamsController::getCentsStatus($this->currency);
     }
 }

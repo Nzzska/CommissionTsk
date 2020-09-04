@@ -14,7 +14,7 @@ class ParamsController
         return CurrencyGatherer::getSupportedCurrencies();
     }
 
-    public static function getRate($currency): float
+    public static function getRate($currency): string
     {
         return CurrencyGatherer::getRate($currency);
     }

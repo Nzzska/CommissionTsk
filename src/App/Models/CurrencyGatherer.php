@@ -12,12 +12,12 @@ class CurrencyGatherer
         return ['EUR', 'USD', 'JPY'];
     }
 
-    public static function getRate($currency): float
+    public static function getRate($currency): string
     {
         $rates = [
-            'EUR' => 1.0,
-            'USD' => 1.1497,
-            'JPY' => 129.53,
+            'EUR' => '1.0',
+            'USD' => '1.1497',
+            'JPY' => '129.53',
         ];
 
         return $rates[$currency];
